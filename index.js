@@ -110,12 +110,4 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   }
-
-  let options = {
-    toggle: { class: 'panel-toggle' },
-    body: { class: 'panel-body', classShow: 'show' }
-  }
-
-  let acc = new accordion(document.getElementsByClassName('accordion')[0], options)
-  acc.init()
 })
