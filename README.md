@@ -19,8 +19,8 @@ The HTML
 ```html
 <html>
 <head>
-  <link rel="stylesheet" type="text/css" href="index.css" />
-  <script src="index.js"></script>
+  <link rel="stylesheet" type="text/css" href="js-toggle.css" />
+  <script src="js-toggle.js"></script>
 </head>
 <body>
   <div class="accordion">
