@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
         options
       )
     } else if (undefined !== options) {
-      throw new Error('The options parameter requires an Object literal reference.')
+      throw new Error('The argument supplied for the options parameter was the incorrect type; Object expected.')
     }
 
     // Instantiate holder to hold reference to last opened panel
