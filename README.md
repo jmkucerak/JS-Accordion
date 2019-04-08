@@ -3,7 +3,7 @@ A basic accordion in vanilla Javascript.
 
 ## Preface
 This code works on the assumption that an accordion consists of at least 5 HTML elements.
-* Container** - This is a single HTML element that is used for grouping the inner parts of the accordion.  More helpful when multiple accordions are in use on a page.
+* Container* - This is a single HTML element that is used for grouping the inner parts of the accordion.  More helpful when multiple accordions are in use on a page.
 * Panel - A single entry within the accordion.  Contains a header and body.
   * Panel Header - Displayed when the Panel is collapsed.  Contains a Title and Toggle.
     * Panel Header Title - Usually textual information letting users know what that panel body contains.
@@ -15,7 +15,7 @@ This code works on the assumption that an accordion consists of at least 5 HTML 
 **The Toggle can actually be the Title as well.
 
 ## Usage
-The HTML
+**HTML**
 ```html
 <html>
 <head>
@@ -38,7 +38,7 @@ The HTML
 </html>
 ```
 
-The CSS
+**CSS**
 ```css
 .panel-header {
   border: 1px solid black;
@@ -61,7 +61,7 @@ The CSS
 }
 ```
 
-The Javascript
+**Javascript**
 ```javascript
 const options = {
   toggle: { class: 'panel-toggle' },
