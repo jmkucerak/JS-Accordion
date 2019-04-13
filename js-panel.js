@@ -97,7 +97,7 @@ function accordion(element, options) {
                     activePanel.classList.toggle(this.options.body.classShow)
                     activePanel = bodies[index]
                 }
-            } else { // Assign activePanel to current Panel.
+            } else { // Assign current Panel to activePanel.
                 activePanel = bodies[index]
             }
 
