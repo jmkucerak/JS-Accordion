@@ -10,6 +10,9 @@
  * @param {Object}      options.body - Traits of the panel body element.
  * @param {string}      options.body.class - Class designating panel body elements.
  * @param {boolean}     options.multi - Switch for multiple open panels.
+ * @param {Object}      options.all - Traits of an open/close element.
+ * @param {string}      options.all.classOpen - Class designating openAll elements.
+ * @param {string}      options.all.classClose = Class designating closeAll elements.
  */
 function accordion(element, options) {
     // Validate element value
@@ -28,7 +31,8 @@ function accordion(element, options) {
             {
                 toggle: null,
                 body: null,
-                multi: false
+                multi: false,
+                all: null
             },
             options
         )
@@ -39,7 +43,7 @@ function accordion(element, options) {
     // Instantiate holder to hold reference to last opened panel
     let activePanels = []
     // References to toggle and body elements.
-    let toggles, bodies
+    let toggles, bodies, allOpen, allClose
 
     // Attempt Accordion behavior initialization.
     this.init = () => {
@@ -85,6 +89,43 @@ function accordion(element, options) {
                     this.toggle(index)
                 })
             }
+
+            // Setup allOpen and allClose if the Options are set.
+            if (null !== this.options.all) {
+                // Process if options.all.classOpen is defined
+                if (undefined !== this.options.all.classOpen) {
+                    // Store each allOpen element.
+                    allOpen = document.getElementsByClassName(this.options.all.classOpen)
+                    // Warn if no elements found
+                    if (0 === allOpen.length) {
+                        console.warn('There were no elements found with the class: ' + this.options.all.classOpen)
+                    } else {
+                        // Attach event listener to each element.
+                        for (let i = 0; i < allOpen.length; i++) {
+                            allOpen[i].addEventListener('click', (e) => {
+                                this.toggleAll(true)
+                            })
+                        }
+                    }
+                }
+
+                // Process if options.all.classClose is defined
+                if (undefined !== this.options.all.classClose) {
+                    // Store each allClose element.
+                    allClose = document.getElementsByClassName(this.options.all.classClose)
+                    // Warn if no elements found
+                    if (0 === allClose.length) {
+                        console.warn('There were no elements found with the class: ' + this.options.all.classClose)
+                    } else {
+                        // Attach event listener to each element.
+                        for (let i = 0; i < allClose.length; i++) {
+                            allClose[i].addEventListener('click', (e) => {
+                                this.toggleAll(false)
+                            })
+                        }
+                    }
+                }
+            }
         }
 
         // Control adding/removal of options.body.classShow
@@ -109,7 +150,7 @@ function accordion(element, options) {
                     if (-1 !== panelIndex) {
                         // Remove panel from activePanels
                         activePanels.splice(panelIndex, 1)
-                    } else {  
+                    } else {
                         // Add panel if inactive.
                         activePanels.push(bodies[index])
                     }
@@ -120,6 +161,36 @@ function accordion(element, options) {
 
             // Toggle show class for the panel associated with the clicked toggle.
             bodies[index].classList.toggle(this.options.body.classShow)
+        }
+
+        /**
+         * Control adding/removing options.body.classShow
+         * to all panels.
+         * 
+         * @param {boolean} open - Switch indicating if panels should open or close
+         */
+        this.toggleAll = function (open) {
+            // Open Panels if any are closed.
+            if (open && activePanels.length !== bodies.length) {
+                // Iterate over all Panels
+                for (let i = 0; i < bodies.length; i++) {
+                    // Open Panel if it is not active already.
+                    if (-1 === activePanels.indexOf(bodies[i])) {
+                        bodies[i].classList.toggle(this.options.body.classShow)
+                        activePanels.push(bodies[i])
+                    }
+                }
+            }
+
+            // Close Panels if any are open.
+            if (!open && 0 !== activePanels.length) {
+                // Iterate over all active Panels
+                for (let i = activePanels.length - 1; i >= 0; i--) {
+                    // Close each active Panel.
+                    activePanels[i].classList.toggle(this.options.body.classShow)
+                    activePanels.pop()
+                }
+            }
         }
     }
 }
