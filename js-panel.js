@@ -11,10 +11,7 @@
  * @param {string}      options.body.class - Class designating panel body elements.
  */
 function accordion(element, options) {
-    // Set debug state
-    this.debugging = (true === debugging)
-
-    // Validate element value; log if debugging
+    // Validate element value
     if (!(element instanceof HTMLElement)) {
         throw new Error('Value of the `element` parameter must be a single valid HTMLElement')
     }
