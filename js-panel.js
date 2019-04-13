@@ -30,12 +30,13 @@ function accordion(element, options) {
             },
             options
         )
-    } else if (undefined !== options) {
+    } else if (undefined !== options) { // Error when Options are not valid.
         throw new Error('The argument supplied for the options parameter was the incorrect type; Object expected.')
     }
 
     // Instantiate holder to hold reference to last opened panel
     let activePanel = null
+    // References to toggle and body elements.
     let toggles, bodies
 
     // Attempt Accordion behavior initialization.
