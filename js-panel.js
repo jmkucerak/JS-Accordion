@@ -9,6 +9,7 @@
  * @param {string}      options.toggle.classShow - Class added/removed from toggled panel body elements.
  * @param {Object}      options.body - Traits of the panel body element.
  * @param {string}      options.body.class - Class designating panel body elements.
+ * @param {boolean}     options.multi - Switch for multiple open panels.
  */
 function accordion(element, options) {
     // Validate element value
@@ -26,7 +27,8 @@ function accordion(element, options) {
         this.options = Object.assign(
             {
                 toggle: null,
-                body: null
+                body: null,
+                multi: false
             },
             options
         )
@@ -35,7 +37,7 @@ function accordion(element, options) {
     }
 
     // Instantiate holder to hold reference to last opened panel
-    let activePanel = null
+    let activePanels = []
     // References to toggle and body elements.
     let toggles, bodies
 
@@ -89,17 +91,31 @@ function accordion(element, options) {
         // to active/current panels.
         this.toggle = function (index) {
             // Test if we have an open panel already.
-            if (activePanel) {
-                // If the panel is already active, then close it and null
-                // the activePanel variable as everything will be closed.
-                if (bodies[index] === activePanel) {
-                    activePanel = null
-                } else { // Close activePanel; reassign to current panel.
-                    activePanel.classList.toggle(this.options.body.classShow)
-                    activePanel = bodies[index]
+            if (0 !== activePanels.length) {
+                // Are multiple open panels allowed?
+                if (!this.options.multi) {
+                    // If the panel is already active, then close it and pop
+                    // the activePanels array as everything will be closed.
+                    if (bodies[index] === activePanels[0]) {
+                        activePanels.pop()
+                    } else { // Close first activePanels element; reassign to current panel.
+                        activePanels[0].classList.toggle(this.options.body.classShow)
+                        activePanels[0] = bodies[index]
+                    }
+                } else { // Multiple open Panels are allowed.
+                    // Store index of current Panel within activePanels
+                    let panelIndex = activePanels.indexOf(bodies[index])
+                    // Test if current Panel is active.
+                    if (-1 !== panelIndex) {
+                        // Remove panel from activePanels
+                        activePanels.splice(panelIndex, 1)
+                    } else {  
+                        // Add panel if inactive.
+                        activePanels.push(bodies[index])
+                    }
                 }
             } else { // Assign current Panel to activePanel.
-                activePanel = bodies[index]
+                activePanels.push(bodies[index])
             }
 
             // Toggle show class for the panel associated with the clicked toggle.
