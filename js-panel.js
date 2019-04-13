@@ -128,8 +128,12 @@ function accordion(element, options) {
             }
         }
 
-        // Control adding/removal of options.body.classShow
-        // to active/current panels.
+        /**
+         * Controls adding/removing options.body.classShow
+         * to active/current Panels.
+         * 
+         * @param {number} index - Indicates which Panel is being interacted with.
+         */
         this.toggle = function (index) {
             // Test if we have an open panel already.
             if (0 !== activePanels.length) {
