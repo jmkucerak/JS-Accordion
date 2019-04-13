@@ -76,13 +76,20 @@ acc.init()
 The options for the Accordion are required to be an Object.  All options are currently required, but a default functionality will be added.
 
 ```javascript
-{
-  toggle: {
-    class: // Class used on all panel toggle elements within an Accordion container.
-  },
-  body: {
-    class: , // Class used on all the panel body elements within an accordion container.
-    classShow: // Class added/removed from panel to expand/collapse.
-  }
-}
+/**
+ * Represents an accordion. 
+ * @constructor
+ * 
+ * @param {HTMLElement} element - Reference to the accordion container html element.
+ * @param {Object}      options - Switches used to modify functionality.
+ * @param {Object}      options.toggle - Traits of the panel toggle element.
+ * @param {string}      options.toggle.class - Class designating panel toggle elements.
+ * @param {string}      options.toggle.classShow - Class added/removed from toggled panel body elements.
+ * @param {Object}      options.body - Traits of the panel body element.
+ * @param {string}      options.body.class - Class designating panel body elements.
+ * @param {boolean}     options.multi - Switch for multiple open panels.
+ * @param {Object}      options.all - Traits of an open/close element.
+ * @param {string}      options.all.classOpen - Class designating openAll elements.
+ * @param {string}      options.all.classClose = Class designating closeAll elements.
+ */
 ```
